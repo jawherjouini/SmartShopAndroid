@@ -6,7 +6,6 @@ import android.content.Context;
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseInstallation;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 /**
@@ -35,6 +34,7 @@ public class SmartShopApplication extends Application {
         Parse.initialize(this, "z7QffxJLRKIucW67A7eGrALrp0aOU6i2nwcqC1hU", "2FmEX5GnzTmyd7EwtVdDtoyseoFT24KCnKaipIks");
         ParseInstallation.getCurrentInstallation().saveInBackground();
         ParseUser.enableAutomaticUser();
+
         ParseACL defaultACL = new ParseACL();
         // Optionally enable public read access.
         defaultACL.setPublicReadAccess(true);
