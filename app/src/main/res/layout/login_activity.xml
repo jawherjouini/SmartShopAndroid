@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/loginpage"
+    tools:context=".activities.LoginActivity">
+
+    <com.github.florent37.materialtextfield.MaterialTextField
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        app:mtf_image="@drawable/icon_login"
+        android:id="@+id/view"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="230dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Login ID"
+            android:id="@+id/login_et"
+            android:textColor="#333"
+            android:textColorHint="#666"
+            android:textSize="15sp" />
+
+    </com.github.florent37.materialtextfield.MaterialTextField>
+
+    <com.github.florent37.materialtextfield.MaterialTextField
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        app:mtf_image="@drawable/icon_password"
+
+        android:id="@+id/view2"
+        android:layout_marginBottom="145dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/view">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:id="@+id/password_et"
+            android:inputType="textPassword"
+            android:textColor="#333"
+            android:textColorHint="#666"
+            android:textSize="15sp" />
+
+    </com.github.florent37.materialtextfield.MaterialTextField>
+
+    <com.andexert.library.RippleView
+        android:id="@+id/rect"
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
+        app:rv_type="rectangle"
+        android:background="@drawable/btnsignin"
+        app:rv_zoom="true"
+        android:layout_alignParentBottom="true">
+
+        <com.dd.CircularProgressButton
+            android:id="@+id/btnWithText"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_alignParentBottom="true"
+            android:textColor="@android:color/black"
+            android:textSize="22sp"
+            app:cpb_colorProgress="#e69c5b"
+            app:cpb_iconComplete="@drawable/ic_action_accept"
+            app:cpb_textIdle="Sign In"
+            app:cpb_textProgress="..."
+            app:cpb_selectorIdle="@android:color/transparent"
+            app:cpb_iconError="@drawable/ic_action_cancel"
+            />
+
+     <!--   <TextView
+            android:id="@+id/rect_child"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_centerInParent="true"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:text="Sign In"
+            android:background="@drawable/btnsignin"/>-->
+
+    </com.andexert.library.RippleView>
+
+</RelativeLayout>
