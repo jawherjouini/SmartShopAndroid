@@ -1,7 +1,7 @@
 package tn.esprit.autoidsys.smartshop.activities;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -13,7 +13,7 @@ import tn.esprit.autoidsys.smartshop.R;
 import tn.esprit.autoidsys.smartshop.models.Product;
 
 
-public class ProductActivity extends ActionBarActivity {
+public class ProductActivity extends Activity {
 
     ImageView image ;
     TextView name ;

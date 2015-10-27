@@ -13,10 +13,12 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import at.markushi.ui.CircleButton;
 import tn.esprit.autoidsys.smartshop.R;
+import tn.esprit.autoidsys.smartshop.models.Category;
 import tn.esprit.autoidsys.smartshop.models.Product;
 
 
@@ -79,8 +81,8 @@ public class ScannerActivity extends ActionBarActivity {
                         public void done(List<ParseObject> objects, ParseException e) {
                             if (objects.size()!= 0) {
                                 Product product = new Product();
-
                                 ParseObject object = objects.get(0);
+
                                 product.setDescription(object.get("description").toString());
                                 product.setName(object.get("name").toString());
                                 product.setUrlPic(object.get("urlPic").toString());
@@ -106,7 +108,86 @@ public class ScannerActivity extends ActionBarActivity {
 
 
             } else if (format.equals("QR_CODE")) {
+
+
                 textStatus.setText(contents);
+                final Intent intent1 = new Intent(ScannerActivity.this, ListCategoriesActivity.class);
+
+                try {
+                    int num = Integer.parseInt(contents);
+                    //  Product product = ScanControllers.getProductByRef(ref);
+
+
+
+                    ParseQuery<ParseObject> queryRayon = new ParseQuery<ParseObject>("rayon");
+                    queryRayon.whereEqualTo("number", num);
+                    queryRayon.findInBackground(new FindCallback<ParseObject>() {
+                        @Override
+                        public void done(List<ParseObject> objects, ParseException e) {
+                            if (objects.size()!= 0) {
+                                ParseObject rayon =objects.get(0);
+                                ParseQuery<ParseObject> queryCategory = new ParseQuery<ParseObject>("category");
+                                queryCategory.whereEqualTo("rayon", rayon);
+
+                                queryCategory.findInBackground(new FindCallback<ParseObject>() {
+                                    @Override
+                                    public void done(List<ParseObject> objects, ParseException e) {
+
+                                        final ArrayList<Category> categories=new ArrayList<Category>();
+
+                                        if( objects.size()!= 0) {
+
+                                            for( int i=0; i < objects.size();i++)
+                                            {
+                                                ParseObject object = objects.get(i);
+                                                final Category category=new Category();
+                                                category.setName(object.get("name").toString());
+                                                category.setUrlPic(object.get("urlPic").toString());
+
+                                                ParseQuery<ParseObject> queryProducts = new ParseQuery<ParseObject>("product");
+                                                queryProducts.whereEqualTo("category", object);
+
+                                                final ArrayList<Product> products=new ArrayList<Product>();
+                                                queryProducts.findInBackground(new FindCallback<ParseObject>() {
+                                                    @Override
+                                                    public void done(List<ParseObject> objects, ParseException e) {
+                                                        for (int i = 0; i < objects.size(); i++) {
+                                                            Product product = new Product();
+                                                            ParseObject object = objects.get(i);
+                                                            product.setDescription(object.get("description").toString());
+                                                            product.setName(object.get("name").toString());
+                                                            product.setUrlPic(object.get("urlPic").toString());
+                                                            product.setPrice(Double.parseDouble(object.get("price").toString()));
+
+                                                            products.add(product);
+
+                                                        }
+
+                                                        category.setProducts(products);
+                                                        categories.add(category);
+                                                        intent1.putExtra("categories",  categories);
+                                                        startActivity(intent1);
+                                                    }
+                                                });
+
+
+                                            }
+
+
+                                        }
+                                    }
+                                });
+
+                            }
+                        }
+                    });
+
+
+
+                } catch (NumberFormatException e) {
+                    textStatus.setText("status : not valid barcode");
+                }
+
             }
         } else {
 
